@@ -12,6 +12,7 @@ public class Main {
         System.out.println(saab.getColor());
         System.out.println(saab.getCurrentSpeed());
         System.out.println(volvo.getEnginePower());
+        System.out.println("HELLO");
 
     }
 }
