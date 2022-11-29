@@ -28,22 +28,6 @@ public class Saab95 extends Car {
         return getEnginePower() * 0.01 * turbo;
     }
 
-    @Override
-    public void incrementSpeed(double amount) {
-        if (getCurrentSpeed() != 0) {
-            setCurrentSpeed(getCurrentSpeed() + speedFactor() * amount);
-        }
-        else {
-            System.out.println("The carEngine is off");
-        }
-    }
-
-    @Override
-    public void decrementSpeed(double amount) {
-        // currentSpeed = getCurrentSpeed() - speedFactor() * amount;
-        setCurrentSpeed(getCurrentSpeed() - speedFactor() * amount);
-    }
-
     // Movable
     public void move() {
     }
@@ -57,12 +41,12 @@ public class Saab95 extends Car {
     }
 
     // TODO fix this method according to lab pm
-    public void gas(double amount) {
-        incrementSpeed(amount);
-    }
+    // public void gas(double amount) {
+    //     incrementSpeed(amount);
+    // }
 
     // TODO fix this method according to lab pm
-    public void brake(double amount) {
-        decrementSpeed(amount);
-    }
+    // public void brake(double amount) {
+    //     decrementSpeed(amount);
+    // }
 }

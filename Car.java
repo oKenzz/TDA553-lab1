@@ -22,10 +22,6 @@ public abstract class Car implements Movable {
         return nrDoors;
     }
 
-    public void setNrDoors(int nrDoors) {
-        this.nrDoors = nrDoors;
-    }
-
     public Color getColor() {
         return color;
     }
@@ -38,16 +34,8 @@ public abstract class Car implements Movable {
         return enginePower;
     }
 
-    public void setEnginePower(double enginePower) {
-        this.enginePower = enginePower;
-    }
-
     public double getCurrentSpeed() {
         return currentSpeed;
-    }
-
-    public void setCurrentSpeed(double currentSpeed) {
-        this.currentSpeed = currentSpeed;
     }
 
     public void startEngine() {
@@ -61,11 +49,21 @@ public abstract class Car implements Movable {
     
     public abstract double speedFactor();
 
-    public abstract void incrementSpeed(double amount);
+    private void incrementSpeed(double amount){
+        currentSpeed += speedFactor() * amount;
+    }
 
-    public abstract void decrementSpeed(double amount);
+    private void decrementSpeed(double amount){
+        currentSpeed -= speedFactor() * amount;
 
-    public abstract void gas(double amount);
-    public abstract void brake(double amount);
+    }
+
+    public void gas(double amount){
+        incrementSpeed(amount);
+    }
+
+    public void brake(double amount){
+        decrementSpeed(amount);
+    }
 
 }
