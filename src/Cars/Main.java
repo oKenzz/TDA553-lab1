@@ -6,9 +6,8 @@ public class Main {
         Saab95 saab = new Saab95(2, Color.red, 125, "Saab95", false);
         //VOLVO
         System.out.println(volvo.getCurrentSpeed());
-        //volvo.gas(13);
+        volvo.gas(13);
         System.out.println(volvo.getCurrentSpeed());
-        volvo.gas(20);
         volvo.move();
         //SAAB
         saab.setTurboOn();
