@@ -8,11 +8,12 @@ public class Main {
         System.out.println(volvo.getCurrentSpeed());
         //volvo.gas(13);
         System.out.println(volvo.getCurrentSpeed());
+        volvo.gas(20);
+        volvo.move();
         //SAAB
-        // saab.setTurboOn();
-        System.out.println(saab.speedFactor());
-        System.out.println(saab.getCurrentSpeed());
-       // saab.gas(13);
-        System.out.println(saab.getCurrentSpeed());
+        saab.setTurboOn();
+        saab.gas(13);
+        saab.turnLeft();
+        
     }
 }

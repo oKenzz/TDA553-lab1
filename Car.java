@@ -8,6 +8,10 @@ public abstract class Car implements Movable {
     private double enginePower; // Engine power of the car
     private double currentSpeed; // The current speed of the car
     private String modelName; // The car model name
+    private double x; // The car x coordinate
+    private double y; // The car x coordinate
+    private int dx; // Direction in x-axis
+    private int dy; // Direction in y-axis
 
     // Volvo + Saab
     public Car(int nrDoors, Color color, double enginePower, String modelName) {
@@ -15,6 +19,10 @@ public abstract class Car implements Movable {
         this.color = color;
         this.enginePower = enginePower;
         this.modelName = modelName;
+        this.x = 0;
+        this.y = 0;
+        this.dx = 0;
+        this.dy = 1;
         stopEngine();
     }
 
@@ -38,6 +46,38 @@ public abstract class Car implements Movable {
         return currentSpeed;
     }
 
+    public double getX() {
+        return x;
+    }
+
+    private void setX(double x) {
+        this.x = x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    private void setY(double y) {
+        this.y = y;
+    }
+
+    public int getDx() {
+        return dx;
+    }
+
+    private void setDx(int dx) {
+        this.dx = dx;
+    }
+
+    public int getDy() {
+        return dy;
+    }
+
+    private void setDy(int dy) {
+        this.dy = dy;
+    }
+
     public void startEngine() {
         currentSpeed = 0.1;
     }
@@ -46,7 +86,73 @@ public abstract class Car implements Movable {
         currentSpeed = 0;
     }
 
-    
+    // Movable
+    public void move() {
+        setX(getX() + getDx()*currentSpeed);
+        setY(getY() + getDy()*currentSpeed);
+        moveMsg();
+    }
+
+    private void moveMsg(){
+        System.out.println("The cars location is now;");
+        System.out.println("x: " + getX());
+        System.out.println("y: " + getY());
+
+    }
+
+    public void turnLeft() {
+        if (this.dx == 0 && this.dy == 1){
+            setDx(-1);
+            setDy(0);
+            leftMsg();
+        } else if (this.dx == -1 && this.dy == 0){
+            setDx(0);
+            setDy(-1);
+            downMsg();
+        } else if (this.dx == 0 && this.dy == -1){
+            setDx(1);
+            setDy(0);
+            rightMsg();
+        } else if (this.dx == 1 && this.dy == 0){
+            setDx(0);
+            setDy(1);
+            upMsg();
+        } 
+    }
+
+    public void turnRight() {
+        if (this.dx == 0 && this.dy == 1){
+            setDx(1);
+            setDy(0);
+            rightMsg();
+        } else if (this.dx == 1 && this.dy == 0){
+            setDx(0);
+            setDy(-1);
+            downMsg();
+        } else if (this.dx == 0 && this.dy == -1){
+            setDx(-1);
+            setDy(0);
+            leftMsg();
+        } else if (this.dx == -1 && this.dy == 0){
+            setDx(0);
+            setDy(1);
+            upMsg();
+        } 
+    }
+
+    private void upMsg(){
+        System.out.println("Direction is now up");
+    }
+    private void leftMsg(){
+        System.out.println("Direction is now left");
+    }
+    private void rightMsg(){
+        System.out.println("Direction is now right");
+    }
+    private void downMsg(){
+        System.out.println("Direction is now down");
+    }
+
     public abstract double speedFactor();
 
     private void incrementSpeed(double amount){
