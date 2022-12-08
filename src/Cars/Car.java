@@ -12,6 +12,8 @@ public abstract class Car implements Movable {
     private double y; // The car x coordinate
     private int dx; // Direction in x-axis
     private int dy; // Direction in y-axis
+    private double speed = 0; // Used to check SpeedLimit
+
 
     // Volvo + Saab
     public Car(int nrDoors, Color color, double enginePower, String modelName) {
@@ -156,22 +158,46 @@ public abstract class Car implements Movable {
     public abstract double speedFactor();
 
     private void incrementSpeed(double amount){
-        currentSpeed += speedFactor() * amount;
+        speed += speedFactor() * amount;
+        if (SpeedLimit(speed)){
+        currentSpeed = speed;
+        }
+        // currentSpeed += speedFactor() * amount;
     }
 
     private void decrementSpeed(double amount){
-        currentSpeed -= speedFactor() * amount;
-
+        speed -= speedFactor() * amount;
+        if (SpeedLimit(speed)){ // currentSpeed always lies between interval [0, enginePower]
+        currentSpeed = speed;
+        }
+        // currentSpeed -= speedFactor() * amount;
     }
 
     // TODO fix this method according to lab pm
     public void gas(double amount){
+        if (interval(amount)){ // gas accepts value in the interval [0,1]
         incrementSpeed(amount);
+        }
     }
 
     // TODO fix this method according to lab pm
     public void brake(double amount){
+        if (interval(amount)){  // brake accepts value in the interval [0,1]
         decrementSpeed(amount);
+        }
     }
+
+
+    private boolean interval(double number){
+        double high = 1;
+        double low = 0;
+        return number >= low && number <= high;
+    }
+
+    private boolean SpeedLimit(double speed){
+        return speed >= 0 && speed <= enginePower;
+    }
+
+    
 
 }
