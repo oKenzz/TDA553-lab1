@@ -1,0 +1,7 @@
+1. Explain how you chose the inheritance hierarchy in Task 1, making reference to the Open-Closed Principle.
+The Open-Closed Principle, says that modules should be open for extension but closed for modification
+By adding subclassing we can create new objects of type Car with its unique attributes and methods while also provinding shared attributes and methods at the same time thus we are able to extend without modifying the source code
+
+2. Explain how you implemented each of the sanity checks in Task 4.
+By creating methods that checks if gas, brake and currentSpeed are within their interval before doing any calculations.
+By creating the interval for gas and brake it also results in these methods not being able to the opposite of what it is supposed to do i.e gas can't decrement and brake can't increment.

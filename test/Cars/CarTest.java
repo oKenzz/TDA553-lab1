@@ -13,8 +13,8 @@ public class CarTest {
 
     @Before
     public void create_cars() {
-        volvo = new Volvo240(4, Color.black, 100, "Volvo240");
-        saab = new Saab95(2, Color.red, 125, "Saab95", false);
+        volvo = new Volvo240();
+        saab = new Saab95();
     }
 
     @Test
