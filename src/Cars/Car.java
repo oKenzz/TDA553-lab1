@@ -2,12 +2,7 @@ import java.awt.*;
 import java.util.HashMap;
 
 public abstract class Car implements Movable {
-    // HashMap for directions
-    private final static int[] UP = {0,1}; // Represents Directions up,right,down,left
-    private final static int[] RIGHT = {1,0};
-    private final static int[] DOWN = {0,-1};
-    private final static int[] LEFT = {-1,0};
-    private final static HashMap<String,int[]> DIRECTIONS = createDirections(); // HashMap of directions
+    private final static HashMap<String,int[]> DIRECTIONS = createDirectionsMap(); // HashMap of directions
 
     // Car attributes
     protected int nrDoors; // Number of doors on the car
@@ -86,12 +81,12 @@ public abstract class Car implements Movable {
         setDy(directionValues[1]);
     }
 
-    private static HashMap<String,int[]> createDirections(){
+    private static HashMap<String,int[]> createDirectionsMap(){
         HashMap<String,int[]> directions = new HashMap<String, int[]>();
-        directions.put("UP", UP);
-        directions.put("RIGHT", RIGHT);
-        directions.put("DOWN", DOWN);
-        directions.put("LEFT", LEFT);
+        directions.put("UP", new int[] {0,1});
+        directions.put("RIGHT", new int[] {1,0});
+        directions.put("DOWN", new int[] {0,-1});
+        directions.put("LEFT", new int[] {-1,0});
         return directions;
     }
 
@@ -191,7 +186,4 @@ public abstract class Car implements Movable {
     private boolean SpeedLimit(double speed){
         return speed >= 0 && speed <= enginePower;
     }
-
-
-
 }
