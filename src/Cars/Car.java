@@ -30,38 +30,6 @@ public abstract class Car implements Movable {
         return currentSpeed;
     }
 
-    public double getX() {
-        return x;
-    }
-
-    private void setX(double x) {
-        this.x = x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    private void setY(double y) {
-        this.y = y;
-    }
-
-    public int getDx() {
-        return dx;
-    }
-
-    private void setDx(int dx) {
-        this.dx = dx;
-    }
-
-    public int getDy() {
-        return dy;
-    }
-
-    private void setDy(int dy) {
-        this.dy = dy;
-    }
-
     public void startEngine() {
         currentSpeed = 0.1;
     }
@@ -70,7 +38,46 @@ public abstract class Car implements Movable {
         currentSpeed = 0;
     }
 
-    public String getDirection(){
+    public void getCarPosition(){
+        System.out.println("The cars position is:");
+        System.out.println("x: " + getX());
+        System.out.println("y: " + getY());
+        System.out.println("Facing: " + getDirection().toLowerCase());
+    }
+
+    private double getX() {
+        return x;
+    }
+
+    private void setX(double x) {
+        this.x = x;
+    }
+
+    private double getY() {
+        return y;
+    }
+
+    private void setY(double y) {
+        this.y = y;
+    }
+
+    private int getDx() {
+        return dx;
+    }
+
+    private void setDx(int dx) {
+        this.dx = dx;
+    }
+
+    private int getDy() {
+        return dy;
+    }
+
+    private void setDy(int dy) {
+        this.dy = dy;
+    }
+
+    private String getDirection(){
         return direction;
     }
 
@@ -132,21 +139,14 @@ public abstract class Car implements Movable {
         }
     }
     
-    // Movable
     public void move() {
         setX(getX() + getDx()*currentSpeed);
         setY(getY() + getDy()*currentSpeed);
-        moveMsg();
+        getCarPosition();
     }
 
     private void directionMsg(String direction){
-        System.out.println("Direction is now " + direction.toLowerCase());
-    }
-
-    private void moveMsg(){
-        System.out.println("The cars location is now;");
-        System.out.println("x: " + getX());
-        System.out.println("y: " + getY());
+        System.out.println("The car is now facing " + direction.toLowerCase());
     }
 
     public abstract double speedFactor();
