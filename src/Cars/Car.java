@@ -10,8 +10,8 @@ public abstract class Car implements Movable {
     protected double currentSpeed; // The current speed of the car
     protected Color color; // The color of the car
     protected String modelName; // The car model name
-    private double x = 0; // The car x coordinate
-    private double y = 0; // The car y coordinate
+    protected double x = 0; // The car x coordinate
+    protected double y = 0; // The car y coordinate
     private int dx = 0; // Direction in x-axis
     private int dy = 1; // Direction in y-axis
     private String direction = "UP"; // The direction of the car (Default: up)
@@ -45,7 +45,7 @@ public abstract class Car implements Movable {
         System.out.println("Facing: " + getDirection().toLowerCase());
     }
 
-    private double getX() {
+    protected double getX() {
         return x;
     }
 
@@ -53,7 +53,7 @@ public abstract class Car implements Movable {
         this.x = x;
     }
 
-    private double getY() {
+    protected double getY() {
         return y;
     }
 
@@ -61,7 +61,7 @@ public abstract class Car implements Movable {
         this.y = y;
     }
 
-    private int getDx() {
+    protected int getDx() {
         return dx;
     }
 
@@ -69,7 +69,7 @@ public abstract class Car implements Movable {
         this.dx = dx;
     }
 
-    private int getDy() {
+    protected int getDy() {
         return dy;
     }
 
@@ -143,7 +143,7 @@ public abstract class Car implements Movable {
         setX(getX() + getDx()*currentSpeed);
         setY(getY() + getDy()*currentSpeed);
         getCarPosition();
-    }
+    }   
 
     private void directionMsg(String direction){
         System.out.println("The car is now facing " + direction.toLowerCase());

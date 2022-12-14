@@ -1,0 +1,26 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class CarRepairShop {
+    private List<Car> cars = new ArrayList<Car>(5);
+    private int x = 10;
+    private int y = 10;
+
+    public void load_car(Car car){
+        if(in_proximity(car)){
+            cars.add(car);
+        }
+    }
+
+    public void unload_car(Car car){
+            // car.setX(random_value_within_proximity);
+            // car.setY(random_value_within_proximity);
+            cars.remove(car);
+        }
+
+    public boolean in_proximity(Car car){
+        int car_x = car.getDx();
+        int car_y = car.getDy();
+        return (car_x >= x-10 || car_x <= x+10 && car_y >= y-10 || car_y <= y+10);
+    }
+}
