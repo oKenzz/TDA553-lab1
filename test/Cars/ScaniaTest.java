@@ -15,45 +15,22 @@ public class ScaniaTest {
 
     @Test
     public void move_platform_true(){
-        scania.move_platform(45);
+        scania.set_platform(45);
         assertEquals(scania.getPlatform_degree() == 45, true);
     }
 
+    
+    @Test
+    public void startEngine_while_raised_is_false(){
+        scania.set_platform(70);
+        scania.startEngine();
+        assertEquals(scania.getCurrentSpeed() != 0, false);
+    }
 
     @Test
-    public void scania_cant_move_with_platform_raised_true(){
-        scania.move_platform(10);
+    public void cant_raise_platform_while_in_motion_true(){
         scania.gas(1);
-        assertEquals(scania.getCurrentSpeed() == 0, true);
+        scania.set_platform(60);
+        assertEquals(scania.getPlatform_degree() == 0,  true);
     }
-
-    @Test
-    public void scania_load_car_true(){
-        Volvo240 volvo = new Volvo240();
-        scania.set_platform();
-        scania.load_car(volvo);
-        assertEquals(scania.getLoaded_cars().contains(volvo), true);
-    }
-
-    @Test
-    public void cant_load_cars_outside_proximity_true(){
-        Volvo240 volvo = new Volvo240();
-        volvo.gas(1);
-        volvo.move();
-        volvo.move();
-        volvo.move();
-        scania.set_platform();
-        scania.load_car(volvo);
-        assertEquals(!scania.getLoaded_cars().contains(volvo), true);
-    }
-
-    @Test
-    public void scania_can_unload_cars_true(){
-        Volvo240 volvo = new Volvo240();
-        scania.set_platform();
-        scania.load_car(volvo);
-        scania.unload_car(volvo);
-        assertEquals(!scania.getLoaded_cars().contains(volvo), true);
-    }
-
 }
