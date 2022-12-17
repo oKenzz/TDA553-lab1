@@ -13,4 +13,7 @@ public class Scania extends Truck {
         stopEngine();
     }
 
+    public int getPlatform_degree(){
+        return platform_angle;
+    }
 }
