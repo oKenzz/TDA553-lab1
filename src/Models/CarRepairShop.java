@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class CarRepairShop implements Iloadable {
+public class CarRepairShop implements ILoadable {
     private List<Vehicle> loaded_cars;
     private int x = 10;
     private int y = 10;

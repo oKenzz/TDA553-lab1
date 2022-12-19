@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.*;
 
-public class CarTransporter extends Truck implements Iloadable{
+public class CarTransporter extends Truck implements ILoadable{
     private List<Vehicle> loaded_cars;
 
     public CarTransporter(String modelname){

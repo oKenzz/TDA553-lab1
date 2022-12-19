@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.util.HashMap;
 
-public abstract class Vehicle implements Movable {
+public abstract class Vehicle implements IMovable {
     private final static HashMap<String, int[]> DIRECTIONS = createDirectionsMap(); // HashMap of directions
 
     // Car attributes
