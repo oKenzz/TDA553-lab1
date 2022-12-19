@@ -1,0 +1,8 @@
+1. The contract for gas() and brake() is that it accepts a value in the interval [0,1] and it will increment or decrement CurrentSpeed
+Both Volvo and Scania follow this contract since they both inherit it and doesn't make any changes to the contract.
+Our design follows Liskov Substitution Prinple because all inherited methods follow the contract for the method. Therefore we should be able to swap between subclasses of vehicle and it will still behave the same.
+
+2. The duplicated code between Scania and CarTransporter are mostly related to a platform. We created a type Truck that inherits vehicle and Scania and CarTransporter inherit Truck. In the truck we wrote a method set_platform() that behaves a little different depending on a max_degree.
+Between CarTransporter and CarRepairShop the duplicated are related to loading a car. We have therefore created a interface iloadable because loading a car is actions they can do that might differ.
+
+3. We haven't modify any methods in lab 1 to adapt to the changes in lab 2. However we created a get_position() methods that returns both x and y that we can use instead of separete gets for them both.

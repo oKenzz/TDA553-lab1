@@ -69,19 +69,19 @@ public class CarTest {
         assertTrue(saab.getDy() == -1);
     }
 
-    @Test
-    public void can_car_move_y_axis_true() {
-        volvo.gas(1);
-        volvo.move();
-        assertTrue(volvo.getY() == 1.25);
-    }
-
-    @Test
+     @Test
     public void can_car_move_x_axis_true() {
         volvo.gas(1);
         volvo.turnRight();
         volvo.move();
-        assertTrue(volvo.getX() == 1.25);
+        assertTrue(volvo.get_position()[0] == 1.25);
+    }
+
+    @Test
+    public void can_car_move_y_axis_true() {
+        volvo.gas(1);
+        volvo.move();
+        assertTrue(volvo.get_position()[1] == 1.25);
     }
 
     @Test

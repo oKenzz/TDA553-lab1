@@ -1,8 +1,8 @@
 import java.awt.*;
 import java.util.HashMap;
 
-public abstract class Car implements Movable {
-    private final static HashMap<String,int[]> DIRECTIONS = createDirectionsMap(); // HashMap of directions
+public abstract class Vehicle implements Movable {
+    private final static HashMap<String, int[]> DIRECTIONS = createDirectionsMap(); // HashMap of directions
 
     // Car attributes
     protected int nrDoors; // Number of doors on the car
@@ -16,7 +16,6 @@ public abstract class Car implements Movable {
     private int dy = 1; // Direction in y-axis
     private String direction = "UP"; // The direction of the car (Default: up)
     private double speed = 0; // Used to check SpeedLimit
-
 
     public int getNrDoors() {
         return nrDoors;
@@ -38,22 +37,25 @@ public abstract class Car implements Movable {
         currentSpeed = 0;
     }
 
-    public void getCarPosition(){
-        System.out.println("The cars position is:");
-        System.out.println("x: " + getX());
-        System.out.println("y: " + getY());
-        System.out.println("Facing: " + getDirection().toLowerCase());
+    public double[] get_position() {
+        double[] position = { x, y };
+        return position;
     }
 
-    private double getX() {
-        return x;
+    protected void set_position(double x, double y) {
+        this.setX(x);
+        this.setY(y);
     }
 
     private void setX(double x) {
         this.x = x;
     }
 
-    private double getY() {
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
         return y;
     }
 
@@ -61,7 +63,7 @@ public abstract class Car implements Movable {
         this.y = y;
     }
 
-    private int getDx() {
+    protected int getDx() {
         return dx;
     }
 
@@ -69,7 +71,7 @@ public abstract class Car implements Movable {
         this.dx = dx;
     }
 
-    private int getDy() {
+    protected int getDy() {
         return dy;
     }
 
@@ -77,113 +79,120 @@ public abstract class Car implements Movable {
         this.dy = dy;
     }
 
-    private String getDirection(){
+    private String getDirection() {
         return direction;
     }
 
-    private void setDirection(String d){
+    private void setDirection(String d) {
         int[] directionValues = DIRECTIONS.get(d);
         direction = d;
         setDx(directionValues[0]);
         setDy(directionValues[1]);
     }
 
-    private static HashMap<String,int[]> createDirectionsMap(){
-        HashMap<String,int[]> directions = new HashMap<String, int[]>();
-        directions.put("UP", new int[] {0,1});
-        directions.put("RIGHT", new int[] {1,0});
-        directions.put("DOWN", new int[] {0,-1});
-        directions.put("LEFT", new int[] {-1,0});
+    private static HashMap<String, int[]> createDirectionsMap() {
+        HashMap<String, int[]> directions = new HashMap<String, int[]>();
+        directions.put("UP", new int[] { 0, 1 });
+        directions.put("RIGHT", new int[] { 1, 0 });
+        directions.put("DOWN", new int[] { 0, -1 });
+        directions.put("LEFT", new int[] { -1, 0 });
         return directions;
     }
 
-    public void turnRight(){
-        switch(getDirection()){
-            case "UP": 
+    public void turnRight() {
+        switch (getDirection()) {
+            case "UP":
                 setDirection("RIGHT");
                 directionMsg(direction);
                 break;
-            case "RIGHT": 
+            case "RIGHT":
                 setDirection("DOWN");
                 directionMsg(direction);
                 break;
-            case "DOWN": 
+            case "DOWN":
                 setDirection("LEFT");
                 directionMsg(direction);
                 break;
-            case "LEFT": 
+            case "LEFT":
                 setDirection("UP");
                 directionMsg(direction);
                 break;
         }
     }
 
-    public void turnLeft(){
-        switch(getDirection()){
-            case "UP": 
+    public void turnLeft() {
+        switch (getDirection()) {
+            case "UP":
                 setDirection("LEFT");
                 directionMsg(direction);
                 break;
-            case "LEFT": 
+            case "LEFT":
                 setDirection("DOWN");
                 directionMsg(direction);
                 break;
-            case "DOWN": 
+            case "DOWN":
                 setDirection("RIGHT");
                 directionMsg(direction);
                 break;
-            case "RIGHT": 
+            case "RIGHT":
                 setDirection("UP");
                 directionMsg(direction);
                 break;
         }
     }
-    
+
     public void move() {
-        setX(getX() + getDx()*currentSpeed);
-        setY(getY() + getDy()*currentSpeed);
-        getCarPosition();
+        setX(getX() + getDx() * currentSpeed);
+        setY(getY() + getDy() * currentSpeed);
+        CarPositionMsg();
     }
 
-    private void directionMsg(String direction){
+    private void directionMsg(String direction) {
         System.out.println("The car is now facing " + direction.toLowerCase());
+    }
+
+    public void CarPositionMsg() {
+        System.out.println("The cars position is:");
+        System.out.println("x: " + getX());
+        System.out.println("y: " + getY());
+        System.out.println("Facing: " + getDirection().toLowerCase());
     }
 
     public abstract double speedFactor();
 
-    private void incrementSpeed(double amount){
+    private void incrementSpeed(double amount) {
         speed += speedFactor() * amount;
-        if (SpeedLimit(speed)){
-        currentSpeed = speed;
+        if (SpeedLimit(speed)) {
+            currentSpeed = speed;
         }
     }
 
-    private void decrementSpeed(double amount){
+    private void decrementSpeed(double amount) {
         speed -= speedFactor() * amount;
-        if (SpeedLimit(speed)){ // currentSpeed always lies between interval [0, enginePower]
-        currentSpeed = speed;
+        if (SpeedLimit(speed)) { // currentSpeed always lies between interval [0, enginePower]
+            currentSpeed = speed;
         }
     }
 
-    public void gas(double amount){
-        if (interval(amount)){ // gas accepts value in the interval [0,1]
-        incrementSpeed(amount);
+    public void gas(double amount) {
+        if (interval(amount)) { // gas accepts value in the interval [0,1]
+            incrementSpeed(amount);
         }
     }
 
-    public void brake(double amount){
-        if (interval(amount)){  // brake accepts value in the interval [0,1]
-        decrementSpeed(amount);
+    public void brake(double amount) {
+        if (interval(amount)) { // brake accepts value in the interval [0,1]
+            decrementSpeed(amount);
         }
     }
 
-    private boolean interval(double number){
+    private boolean interval(double number) {
         double high = 1;
         double low = 0;
         return number >= low && number <= high;
     }
 
-    private boolean SpeedLimit(double speed){
+    private boolean SpeedLimit(double speed) {
         return speed >= 0 && speed <= enginePower;
     }
 }
