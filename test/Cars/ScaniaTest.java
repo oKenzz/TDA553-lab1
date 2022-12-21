@@ -16,9 +16,8 @@ public class ScaniaTest {
     @Test
     public void move_platform_true(){
         scania.set_platform(45);
-        assertEquals(scania.getPlatform_degree() == 45, true);
+        assertEquals(scania.getPlatform_angle() == 45, true);
     }
-
     
     @Test
     public void startEngine_while_raised_is_false(){
@@ -31,6 +30,6 @@ public class ScaniaTest {
     public void cant_raise_platform_while_in_motion_true(){
         scania.gas(1);
         scania.set_platform(60);
-        assertEquals(scania.getPlatform_degree() == 0,  true);
+        assertEquals(scania.getPlatform_angle() == 0,  true);
     }
 }

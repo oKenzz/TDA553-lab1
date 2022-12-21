@@ -1,15 +1,15 @@
 import java.awt.*;
 import java.util.HashMap;
 
-public abstract class Vehicle implements Movable {
+public abstract class Vehicle implements IMovable {
     private final static HashMap<String, int[]> DIRECTIONS = createDirectionsMap(); // HashMap of directions
 
     // Car attributes
-    protected int nrDoors; // Number of doors on the car
-    protected double enginePower; // The enginePower of the car
-    protected double currentSpeed; // The current speed of the car
-    protected Color color; // The color of the car
-    protected String modelName; // The car model name
+    private int nrDoors; // Number of doors on the car
+    private Color color; // The color of the car
+    private double enginePower; // The enginePower of the car
+    private String modelName; // The car model name
+    private double currentSpeed; // The current speed of the car
     private double x = 0; // The car x coordinate
     private double y = 0; // The car y coordinate
     private int dx = 0; // Direction in x-axis
@@ -17,8 +17,12 @@ public abstract class Vehicle implements Movable {
     private String direction = "UP"; // The direction of the car (Default: up)
     private double speed = 0; // Used to check SpeedLimit
 
-    public int getNrDoors() {
-        return nrDoors;
+    public Vehicle(int nrDoors, Color color, double enginePower, String modelName){
+        this.nrDoors = nrDoors;
+        this.enginePower = enginePower;
+        this.color = color;
+        this.modelName = modelName;
+        stopEngine();
     }
 
     public double getEnginePower() {
@@ -29,12 +33,8 @@ public abstract class Vehicle implements Movable {
         return currentSpeed;
     }
 
-    public void startEngine() {
-        currentSpeed = 0.1;
-    }
-
-    public void stopEngine() {
-        currentSpeed = 0;
+    protected void setCurrentSpeed(double currentSpeed) {
+        this.currentSpeed = currentSpeed;
     }
 
     public double[] get_position() {
@@ -43,12 +43,8 @@ public abstract class Vehicle implements Movable {
     }
 
     protected void set_position(double x, double y) {
-        this.setX(x);
-        this.setY(y);
-    }
-
-    private void setX(double x) {
         this.x = x;
+        this.y = y;
     }
 
     public double getX() {
@@ -59,24 +55,12 @@ public abstract class Vehicle implements Movable {
         return y;
     }
 
-    private void setY(double y) {
-        this.y = y;
-    }
-
     protected int getDx() {
         return dx;
     }
 
-    private void setDx(int dx) {
-        this.dx = dx;
-    }
-
     protected int getDy() {
         return dy;
-    }
-
-    private void setDy(int dy) {
-        this.dy = dy;
     }
 
     private String getDirection() {
@@ -86,8 +70,8 @@ public abstract class Vehicle implements Movable {
     private void setDirection(String d) {
         int[] directionValues = DIRECTIONS.get(d);
         direction = d;
-        setDx(directionValues[0]);
-        setDy(directionValues[1]);
+        this.dx = directionValues[0];
+        this.dy = directionValues[1];
     }
 
     private static HashMap<String, int[]> createDirectionsMap() {
@@ -97,6 +81,14 @@ public abstract class Vehicle implements Movable {
         directions.put("DOWN", new int[] { 0, -1 });
         directions.put("LEFT", new int[] { -1, 0 });
         return directions;
+    }
+
+    public void startEngine() {
+        currentSpeed = 0.1;
+    }
+
+    public void stopEngine() {
+        currentSpeed = 0;
     }
 
     public void turnRight() {
@@ -142,8 +134,8 @@ public abstract class Vehicle implements Movable {
     }
 
     public void move() {
-        setX(getX() + getDx() * currentSpeed);
-        setY(getY() + getDy() * currentSpeed);
+        x = x + dx * currentSpeed;
+        y = y + dy * currentSpeed;
         CarPositionMsg();
     }
 
@@ -153,9 +145,9 @@ public abstract class Vehicle implements Movable {
 
     public void CarPositionMsg() {
         System.out.println("The cars position is:");
-        System.out.println("x: " + getX());
-        System.out.println("y: " + getY());
-        System.out.println("Facing: " + getDirection().toLowerCase());
+        System.out.println("x: " + x);
+        System.out.println("y: " + y);
+        System.out.println("Facing: " + direction.toLowerCase());
     }
 
     public abstract double speedFactor();

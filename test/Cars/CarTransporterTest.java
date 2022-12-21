@@ -14,7 +14,13 @@ public class CarTransporterTest{
 
     @Before
     public void create_CarTransporter(){
-        carTransporter = new CarTransporter("SAAB");
+        carTransporter = new CarTransporter();
+    }
+
+    @Test
+    public void test_set_platform_on_true(){
+        carTransporter.set_platform(1);
+        assertEquals(carTransporter.getPlatform_state(), true);
     }
 
     @Test

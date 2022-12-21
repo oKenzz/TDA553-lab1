@@ -6,8 +6,8 @@ import org.junit.Test;
 
 public class CarTest {
 
-    Volvo240 volvo;
-    Saab95 saab;
+    private Volvo240 volvo;
+    private Saab95 saab;
 
     @Before
     public void create_cars() {
