@@ -1,4 +1,6 @@
-public class PlatformWithAngle implements IPlatform{
+package platform;
+
+public class PlatformWithAngle{
     private int maximum_angle;
     private int platform_angle;
     private boolean is_platform_On;     
@@ -10,32 +12,20 @@ public class PlatformWithAngle implements IPlatform{
         this.is_platform_On = false;
     }
 
-    public void set_platform(int value){
-    //    change_platform_degree(value);
-        if(!check_degree(value)) change_platform_degree(value);
+    public void set_platform(int degree){
+        check_degree(degree);
+        change_platform_degree(degree);
     }
 
     private void change_platform_degree(int degree){
-        if (degree_interval(degree)){
-            this.platform_angle = degree;
-            this.is_platform_On  = (degree > 0) ? true : false;
-        }
-        else{
-            invalid_degreeMsg();
-        }
+        this.platform_angle = degree;
+        this.is_platform_On  = (degree > 0) ? true : false;
     }
 
-    private boolean check_degree(int degree){
-        boolean check = false;
-        if(check_platform_is_up(degree)){
-            check = true;
-            platformUpMsg();
-        }
-        if(check_platform_is_down(degree)){
-            check = true;
-            platformDownMsg();
-        }
-        return check;
+    private void check_degree(int degree){
+        if(!degree_interval(degree)) throw new IllegalStateException("You can not set the platform angle to this degree");
+        if(check_platform_is_up(degree)) throw new IllegalStateException("The platform is already Up");
+        if(check_platform_is_down(degree)) throw new IllegalStateException("The platform is already Down");
     }
 
     private boolean check_platform_is_up(int degree){
@@ -49,18 +39,6 @@ public class PlatformWithAngle implements IPlatform{
 
     private boolean degree_interval(int degree){
         return degree <= maximum_angle && degree >= 0;
-    }
-
-    private void invalid_degreeMsg(){
-        System.out.println("You can not set the platform angle to this degree");
-    }
-    
-    protected void platformUpMsg(){
-        System.out.println("The platform is already Up");
-    }
-
-    protected void platformDownMsg(){
-        System.out.println("The platform is already Down");
     }
 
     public boolean getIs_platform_On() {

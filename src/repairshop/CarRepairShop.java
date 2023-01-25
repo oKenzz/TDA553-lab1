@@ -1,10 +1,15 @@
+package repairshop;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import carstorage.CarStorage;
+import vehicletypes.Vehicle;
+
 public class CarRepairShop{
     private CarStorage storage;
-    private int x = 10;
-    private int y = 10;
+    private int x = 0;
+    private int y = 0;
 
     public CarRepairShop(){
         this.storage = new CarStorage(5);

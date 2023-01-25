@@ -1,5 +1,9 @@
+package vehicletypes;
+
+
 import java.awt.*;
 import java.util.HashMap;
+import interfaces.IMovable;
 
 public abstract class Vehicle implements IMovable {
     private final static HashMap<String, int[]> DIRECTIONS = createDirectionsMap(); // HashMap of directions
@@ -42,7 +46,7 @@ public abstract class Vehicle implements IMovable {
         return position;
     }
 
-    protected void set_position(double x, double y) {
+    public void set_position(double x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -55,11 +59,11 @@ public abstract class Vehicle implements IMovable {
         return y;
     }
 
-    protected int getDx() {
+    public int getDx() {
         return dx;
     }
 
-    protected int getDy() {
+    public int getDy() {
         return dy;
     }
 
@@ -84,8 +88,10 @@ public abstract class Vehicle implements IMovable {
     }
 
     public void startEngine() {
+        if (currentSpeed > 0.1) throw new IllegalStateException("Engine is already on");
         currentSpeed = 0.1;
     }
+
 
     public void stopEngine() {
         currentSpeed = 0;
@@ -169,11 +175,13 @@ public abstract class Vehicle implements IMovable {
     public void gas(double amount) {
         if (interval(amount)) { // gas accepts value in the interval [0,1]
             incrementSpeed(amount);
+        } else {
+            throw new IllegalStateException();
         }
     }
 
     public void brake(double amount) {
-        if (interval(amount)) { // brake accepts value in the interval [0,1]
+        if (interval(amount)){ // brake accepts value in the interval [0,1]
             decrementSpeed(amount);
         }
     }

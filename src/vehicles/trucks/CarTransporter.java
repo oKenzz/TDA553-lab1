@@ -1,26 +1,41 @@
+package vehicles.trucks;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import carstorage.CarStorage;
+import vehicletypes.Truck;
+import vehicletypes.Vehicle;
+
+
 import java.awt.*;
+import platform.PlatformWithStates;
+
 
 public class CarTransporter extends Truck{
     private CarStorage storage;
+    private PlatformWithStates platform = new PlatformWithStates();
 
     public CarTransporter(){
-        super(2, Color.black, 300, "CarTransporter", new PlatformWithStates());
+        super(2, Color.black, 300, "CarTransporter");
         this.storage = new CarStorage(2);
         // this.platform = new PlatformWithStates();
         stopEngine();
     }
 
+    public void set_platform(){
+        if(getCurrentSpeed() > 0) throw new IllegalStateException("Can not raise platform while in motion");
+        platform.set_platform();
+    }
+
     public void load_car(Vehicle car){
-        if(getPlatform().getIs_platform_On()){
+        if(getIs_platform_On()){
             storage.load_car(car, getX(), getY());
         }
     }
 
     public void unload_car(Vehicle car){
-        if(getPlatform().getIs_platform_On()){
+        if(getIs_platform_On()){
             storage.unload_car(car, getX(), getY());
         }
     }
@@ -43,4 +58,10 @@ public class CarTransporter extends Truck{
             car.set_position(new_x, new_y);
         }
     }
+
+    public boolean getIs_platform_On() {
+        return platform.getIs_platform_On();
+    }
+
+    
 }

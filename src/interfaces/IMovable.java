@@ -1,4 +1,6 @@
-interface IMovable {
+package interfaces;
+
+public interface IMovable {
     void move();
 
     void turnLeft();

@@ -1,8 +1,14 @@
+package vehicle;
+
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import vehicles.cars.Saab95;
+import vehicles.cars.Volvo240;
+
 
 public class CarTest {
 
@@ -84,16 +90,14 @@ public class CarTest {
         assertTrue(volvo.get_position()[1] == 1.25);
     }
 
-    @Test
+    @Test(expected = IllegalStateException.class)
     public void can_gas_accept_value_outside_interval_false(){
         volvo.gas(2);
-        assertEquals(volvo.getCurrentSpeed() == 2.5, false);
     }
 
-    @Test
+    @Test(expected = IllegalStateException.class)
     public void can_gas_decrement_speed_false(){
         volvo.gas(-1);
-        assertEquals(volvo.getCurrentSpeed() == -1.25, false);
     }
 
     @Test
