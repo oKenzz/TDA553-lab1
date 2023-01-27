@@ -12,7 +12,7 @@ public abstract class Vehicle implements IMovable {
     private int nrDoors; // Number of doors on the car
     private Color color; // The color of the car
     private double enginePower; // The enginePower of the car
-    public String modelName; // The car model name
+    private String modelName; // The car model name
     private double currentSpeed; // The current speed of the car
     private double x = 0; // The car x coordinate
     private double y = 0; // The car y coordinate
@@ -194,5 +194,9 @@ public abstract class Vehicle implements IMovable {
 
     private boolean SpeedLimit(double speed) {
         return speed >= 0 && speed <= enginePower;
+    }
+
+    public String getModelName() {
+        return modelName;
     }
 }

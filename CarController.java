@@ -28,17 +28,21 @@ public class CarController {
     CarView frame;
     // A list of cars, modify if needed
     ArrayList<Vehicle> cars = new ArrayList<>();
-
     //methods:
 
     public static void main(String[] args) {
         // Instance of this class
         CarController cc = new CarController();
 
+        Volvo240 volvo240 = new Volvo240();
+        Saab95 saab95 = new Saab95();
         Scania scania = new Scania();
-        scania.set_position(100, 100);
-        cc.cars.add(new Volvo240());
-        cc.cars.add(new Saab95());
+
+        saab95.set_position(0, 100);
+        scania.set_position(0,200);
+
+        cc.cars.add(volvo240);
+        cc.cars.add(saab95);
         cc.cars.add(scania);
 
         // Start a new view and send a reference of self
@@ -72,6 +76,4 @@ public class CarController {
             car.gas(gas);
         }
     }
-
-    
 }
