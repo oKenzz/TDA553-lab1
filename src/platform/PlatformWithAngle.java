@@ -1,6 +1,8 @@
 package platform;
 
-public class PlatformWithAngle{
+import interfaces.IPlatform;
+
+public class PlatformWithAngle implements IPlatform{
     private int maximum_angle;
     private int platform_angle;
     private boolean is_platform_On;     

@@ -14,18 +14,24 @@ import platform.PlatformWithStates;
 
 public class CarTransporter extends Truck{
     private CarStorage storage;
-    private PlatformWithStates platform = new PlatformWithStates();
+    private PlatformWithStates platform;
+    private int platform_state;
 
     public CarTransporter(){
         super(2, Color.black, 300, "CarTransporter");
         this.storage = new CarStorage(2);
-        // this.platform = new PlatformWithStates();
+        this.platform = new PlatformWithStates();
         stopEngine();
     }
 
     public void set_platform(){
         if(getCurrentSpeed() > 0) throw new IllegalStateException("Can not raise platform while in motion");
-        platform.set_platform();
+        if(getIs_platform_On()){
+            platform_state = 0;
+        } else {
+            platform_state = 1;
+        }
+        platform.set_platform(platform_state);
     }
 
     public void load_car(Vehicle car){

@@ -7,10 +7,11 @@ import vehicletypes.Truck;
 public class Scania extends Truck{
 
     private final static int MAX_DEGREE = 70;
-    private PlatformWithAngle platform = new PlatformWithAngle(MAX_DEGREE);
+    private PlatformWithAngle platform;
 
     public Scania() {
         super(2, Color.red, 200, "Scania");
+        this.platform = new PlatformWithAngle(MAX_DEGREE);
         stopEngine();
     }
 
