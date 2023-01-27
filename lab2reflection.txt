@@ -6,3 +6,9 @@ Our design follows Liskov Substitution Prinple because all inherited methods fol
 Between CarTransporter and CarRepairShop the duplicated are related to loading a car. We have therefore created a interface iloadable because loading a car is actions they can do that might differ.
 
 3. We haven't modify any methods in lab 1 to adapt to the changes in lab 2. However we created a get_position() methods that returns both x and y that we can use instead of separete gets for them both.
+
+
+LSP question (Issues)
+The contract for startEngine in Vehicle is that it should set CurrentSpeed to 0,1. However when we override the method in truck, the behaviour is instead it should set currentspeed to if platform is up. This means that the behaviour of startEngine is not guaranteed therefore the postcondition is weakened.
+Since we want to startEngine to set CurrentSpeed if a statement is fufilled, we have to therefore add a uncertainty in Vehicle so that the strength of postcondition is met. We added a exception where it cannot startEngine if it is already on.
+

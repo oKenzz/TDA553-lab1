@@ -1,12 +1,17 @@
+package vehicle;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import vehicles.cars.Volvo240;
+import vehicles.trucks.CarTransporter;
+import vehicletypes.Vehicle;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
 
 public class CarTransporterTest{
 
@@ -14,13 +19,19 @@ public class CarTransporterTest{
 
     @Before
     public void create_CarTransporter(){
-        carTransporter = new CarTransporter("SAAB");
+        carTransporter = new CarTransporter();
+    }
+
+    @Test
+    public void test_set_platform_on_true(){
+        carTransporter.set_platform();
+        assertEquals(carTransporter.getIs_platform_On(), true);
     }
 
     @Test
     public void test_if_CarTransporter_can_load_cars_true(){
         Volvo240 volvo = new Volvo240();
-        carTransporter.set_platform(1);
+        carTransporter.set_platform();
         carTransporter.load_car(volvo);
         assertEquals(carTransporter.getLoaded_cars().contains(volvo), true);
     }
@@ -28,9 +39,9 @@ public class CarTransporterTest{
     @Test
     public void if_cars_have_same_position_as_CarTransporter_true(){
         Volvo240 volvo = new Volvo240();
-        carTransporter.set_platform(1);
+        carTransporter.set_platform();
         carTransporter.load_car(volvo);
-        carTransporter.set_platform(0);
+        carTransporter.set_platform();
         carTransporter.gas(1);
         carTransporter.move();
         carTransporter.move();
@@ -47,7 +58,7 @@ public class CarTransporterTest{
     @Test
     public void test_if_CarTransporter_can_unload_cars_true(){
         Volvo240 volvo = new Volvo240();
-        carTransporter.set_platform(1);
+        carTransporter.set_platform();
         carTransporter.load_car(volvo);
         carTransporter.unload_car(volvo);
         assertEquals(!carTransporter.getLoaded_cars().contains(volvo), true);
