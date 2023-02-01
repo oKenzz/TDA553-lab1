@@ -14,8 +14,7 @@ import vehicletypes.Vehicle;
 
 public class DrawPanel extends JPanel {
 
-    CarModel model = new CarModel();
-    ArrayList<VehicleObject> cars = model.getCars();
+    ArrayList<VehicleObject> cars;
 
     // Just a single image, TODO: Generalize
     // BufferedImage volvoImage;
@@ -40,6 +39,10 @@ public class DrawPanel extends JPanel {
         //     scaniaPoint.y = y;
         // }
         vehicle.setPosition(x, y);
+    }
+
+    public void setModel(ArrayList<VehicleObject> cars){
+        this.cars = cars;
     }
 
 
@@ -74,7 +77,7 @@ public class DrawPanel extends JPanel {
         // g.drawImage(volvoImage, volvoPoint.x, volvoPoint.y, null); // see javadoc for more info on the parameters
         // g.drawImage(saab95Image, saab95Point.x, saab95Point.y, null); // see javadoc for more info on the parameters
         // g.drawImage(scaniaImage, scaniaPoint.x, scaniaPoint.y, null); // see javadoc for more info on the parameters
-        for (VehicleObject car : model.getCars()){
+        for (VehicleObject car : cars){
             g.drawImage(car.getImg(), car.getX(), car.getY(), null); // see javadoc for more info on the parameters
         }
     }

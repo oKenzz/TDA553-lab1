@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
  **/
 
 public class CarView extends JFrame{
-    private static final int X = 800;
+    private static final int X = 1000;
     private static final int Y = 600;
 
     // The controller member
@@ -34,6 +34,8 @@ public class CarView extends JFrame{
 
     JButton gasButton = new JButton("Gas");
     JButton brakeButton = new JButton("Brake");
+    JButton turnRightButton = new JButton("Turn Right");
+    JButton turnLeftButton = new JButton("Turn Left");
     JButton turboOnButton = new JButton("Saab Turbo on");
     JButton turboOffButton = new JButton("Saab Turbo off");
     JButton liftBedButton = new JButton("Scania Lift Bed");
@@ -47,6 +49,8 @@ public class CarView extends JFrame{
         this.carC = cc;
         initComponents(framename);
     }
+
+    
 
     // Sets everything in place and fits everything
     // TODO: Take a good look and make sure you understand how these methods and components work
@@ -78,14 +82,17 @@ public class CarView extends JFrame{
 
         this.add(gasPanel);
 
-        controlPanel.setLayout(new GridLayout(2,4));
+        controlPanel.setLayout(new GridLayout(2,5));
 
+        //TODO: Turn car Left and right, also fix logic for up, down, left, right in vehicle
         controlPanel.add(gasButton, 0);
-        controlPanel.add(turboOnButton, 1);
-        controlPanel.add(liftBedButton, 2);
-        controlPanel.add(brakeButton, 3);
-        controlPanel.add(turboOffButton, 4);
-        controlPanel.add(lowerBedButton, 5);
+        controlPanel.add(turnRightButton, 1);
+        controlPanel.add(turboOnButton, 2);
+        controlPanel.add(liftBedButton, 3);
+        controlPanel.add(brakeButton, 4);
+        controlPanel.add(turnLeftButton, 5);
+        controlPanel.add(turboOffButton, 6);
+        controlPanel.add(lowerBedButton, 7);
         controlPanel.setPreferredSize(new Dimension((X/2)+4, 200));
         this.add(controlPanel);
         controlPanel.setBackground(Color.CYAN);
@@ -104,10 +111,76 @@ public class CarView extends JFrame{
 
         // This actionListener is for the gas button only
         // TODO: Create more for each component as necessary
+
+        //TODO: Add eventhandling for turning
+
         gasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 carC.gas(gasAmount);
+            }
+        });
+
+        brakeButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                carC.brake(gasAmount); // TODO: Add brakeAmount
+            }
+        });
+
+        turboOnButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                carC.turboOn();
+            }
+        });
+
+        turboOffButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                carC.turboOff();
+            }
+        });
+
+        liftBedButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                carC.liftBed();
+            }
+        });
+
+        lowerBedButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                carC.lowerBed();
+            }
+        });
+
+        startButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                carC.startCars();
+            }
+        });
+
+        stopButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                carC.stopCars();
+            }
+        });
+
+        turnRightButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                carC.turnRight();
+            }
+        });
+
+        turnLeftButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                carC.turnLeft();
             }
         });
 

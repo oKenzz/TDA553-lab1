@@ -19,20 +19,21 @@ public class CarController {
 
     // The delay (ms) corresponds to 20 updates a sec (hz)
     private final int delay = 50;
-    // The timer is started with an listener (see below) that executes the statements
+    // The timer is started with an listener (see below) that executes the
+    // statements
     // each step between delays.
     private Timer timer = new Timer(delay, new TimerListener());
 
     // The frame that represents this instance View of the MVC pattern
     CarView frame;
 
-    //Model
+    // Model
     CarModel model;
 
     // A list of cars, modify if needed
     ArrayList<VehicleObject> cars = new ArrayList<>();
 
-    //methods:
+    // methods:
 
     public static void main(String[] args) {
         // Instance of this class
@@ -53,21 +54,26 @@ public class CarController {
 
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
+        cc.frame.drawPanel.setModel(cc.cars); // Getter for drawPanel????
 
         // Start the timer
         cc.timer.start();
     }
 
-    /* Each step the TimerListener moves all the cars in the list and tells the
-    * view to update its images. Change this method to your needs.
-    * */
+    /*
+     * Each step the TimerListener moves all the cars in the list and tells the
+     * view to update its images. Change this method to your needs.
+     */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            for (VehicleObject car : model.getCars()) {
-                car.getVehicle().move();
-                int x = (int) Math.round(car.getVehicle().getX());
-                int y = (int) Math.round(car.getVehicle().getY());
-                car.setPosition(x, y);
+            for (VehicleObject car : cars) {
+                Vehicle current_car = car.getVehicle();
+                // current_car.move();
+                model.move(current_car);
+                int x = (int) Math.round(current_car.getX());
+                int y = (int) Math.round(current_car.getY());
+                model.setPosition(x, y, car);
+                model.check_bounds(1000, 360); // Find the correct x and y value
                 // frame.drawPanel.moveit(x, y, car);
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
@@ -76,10 +82,45 @@ public class CarController {
     }
 
     // Calls the gas method for each car once
-    void gas(int amount) {
-        double gas = ((double) amount) / 100;
-        for (VehicleObject car : model.getCars()) {
-            car.getVehicle().gas(gas);
-        }
+    public void gas(int amount) {
+        model.gas(amount);
+    }
+
+    public void brake(int amount) {
+        model.brake(amount);
+    }
+
+    public void turboOn() {
+        model.turboOn();
+    }
+
+    public void turboOff() {
+        model.turboOff();
+    }
+
+    public void liftBed() {
+        model.liftBed();
+    }
+
+    public void lowerBed() {
+        model.lowerBed();
+    }
+
+    //TODO: Fix interaction between bed and startCars
+
+    public void startCars() {
+        model.startCars();
+    }
+
+    public void stopCars() {
+        model.stopCars();
+    }
+
+    public void turnRight(){
+        model.turnRight();
+    }
+
+    public void turnLeft(){
+        model.turnLeft();
     }
 }

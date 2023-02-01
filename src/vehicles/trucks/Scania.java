@@ -17,7 +17,7 @@ public class Scania extends Truck{
 
     public void set_platform(int angle){
         if(getCurrentSpeed() > 0) throw new IllegalStateException("Can not raise platform while in motion");
-        platform.set_platform(angle);
+            platform.set_platform(angle);
     }
 
 
@@ -28,6 +28,9 @@ public class Scania extends Truck{
     public int getPlatform_angle() {
         return platform.getPlatform_angle();
     }
-    
+
+    public static int getMaxDegree() {
+        return MAX_DEGREE;
+    }
 }
  
