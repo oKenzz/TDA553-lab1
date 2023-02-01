@@ -57,7 +57,7 @@ public class CarTransporter extends Truck{
         double new_x = x + getDx() * getCurrentSpeed();
         double new_y = y + getDy() * getCurrentSpeed();
         set_position(new_x, new_y);
-        CarPositionMsg();
+        // CarPositionMsg();
 
         List<Vehicle> cars = storage.getLoaded_cars();
         for (Vehicle car : cars){

@@ -25,7 +25,6 @@ public class Saab95 extends Vehicle {
         double turbo = 1;
         if (turboOn)
             turbo = 1.3;
-            System.out.println("Turbo is: " + turboOn);
         return getEnginePower() * 0.01 * turbo;
     }
 

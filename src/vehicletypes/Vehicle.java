@@ -101,19 +101,19 @@ public abstract class Vehicle implements IMovable {
         switch (getDirection()) {
             case "UP":
                 setDirection("RIGHT");
-                directionMsg(direction);
+                // directionMsg(direction);
                 break;
             case "RIGHT":
                 setDirection("DOWN");
-                directionMsg(direction);
+                // directionMsg(direction);
                 break;
             case "DOWN":
                 setDirection("LEFT");
-                directionMsg(direction);
+                // directionMsg(direction);
                 break;
             case "LEFT":
                 setDirection("UP");
-                directionMsg(direction);
+                // directionMsg(direction);
                 break;
         }
     }
@@ -122,19 +122,19 @@ public abstract class Vehicle implements IMovable {
         switch (getDirection()) {
             case "UP":
                 setDirection("LEFT");
-                directionMsg(direction);
+                // directionMsg(direction);
                 break;
             case "LEFT":
                 setDirection("DOWN");
-                directionMsg(direction);
+                // directionMsg(direction);
                 break;
             case "DOWN":
                 setDirection("RIGHT");
-                directionMsg(direction);
+                // directionMsg(direction);
                 break;
             case "RIGHT":
                 setDirection("UP");
-                directionMsg(direction);
+                // directionMsg(direction);
                 break;
         }
     }
@@ -145,31 +145,35 @@ public abstract class Vehicle implements IMovable {
         // CarPositionMsg();
     }
 
-    private void directionMsg(String direction) {
-        System.out.println("The car is now facing " + direction.toLowerCase());
-    }
+    // private void directionMsg(String direction) {
+    //     System.out.println("The car is now facing " + direction.toLowerCase());
+    // }
 
-    public void CarPositionMsg() {
-        System.out.println("The cars position is:");
-        System.out.println("x: " + x);
-        System.out.println("y: " + y);
-        System.out.println("Facing: " + direction.toLowerCase());
-    }
+    // public void CarPositionMsg() {
+    //     System.out.println("The cars position is:");
+    //     System.out.println("x: " + x);
+    //     System.out.println("y: " + y);
+    //     System.out.println("Facing: " + direction.toLowerCase());
+    // }
 
     public abstract double speedFactor();
 
     private void incrementSpeed(double amount) {
         double speed = 0;
+        double new_speed;
         speed += speedFactor() * amount;
-        if (SpeedLimit(speed)) {
+        new_speed = currentSpeed + speed;
+        if (SpeedLimit(new_speed)) {
             currentSpeed += speed;
         }
     }
 
     private void decrementSpeed(double amount) {
         double speed = 0;
+        double new_speed;
         speed = Math.abs(speed -= speedFactor() * amount);
-        if (SpeedLimit(speed)) { // currentSpeed always lies between interval [0, enginePower]
+        new_speed = currentSpeed - speed;
+        if (SpeedLimit(new_speed)) { // currentSpeed always lies between interval [0, enginePower]
             currentSpeed -= speed;
         }
         if (currentSpeed < 0){
@@ -177,29 +181,28 @@ public abstract class Vehicle implements IMovable {
         }
     }
 
-    //TODO: cant gas without engineON
     public void gas(double amount) {
-        if (interval(amount) && currentSpeed != 0) { // gas accepts value in the interval [0,1]
-            incrementSpeed(amount);
-        } else {
-            throw new IllegalStateException();
-        }
+        if (!interval(amount)) throw new IllegalStateException("Can only gas by a amount of 0 to 1");
+        if (currentSpeed == 0) throw new IllegalStateException("Engien must be on"); 
+        incrementSpeed(amount);
+        System.out.println(currentSpeed);
     }
 
     public void brake(double amount) {
-        if (interval(amount) && currentSpeed != 0){ // brake accepts value in the interval [0,1]
-            decrementSpeed(amount);
-        }
+        if (!interval(amount)) throw new IllegalStateException("Can only gas by a amount of 0 to 1");
+        if (currentSpeed == 0) throw new IllegalStateException("Engien must be on"); 
+        decrementSpeed(amount);
+
     }
 
-    private boolean interval(double number) {
+    private boolean interval(double number){
         double high = 1;
         double low = 0;
         return number >= low && number <= high;
     }
 
-    private boolean SpeedLimit(double speed) {
-        return speed >= 0 && speed <= enginePower;
+    private boolean SpeedLimit(double new_speed) {
+        return new_speed >= 0 && new_speed <= enginePower;
     }
 
     public String getModelName() {

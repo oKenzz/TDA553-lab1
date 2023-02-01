@@ -28,7 +28,11 @@ public class CarModel {
         double gas = ((double) amount) / 100;
         for (VehicleObject car : cars) {
             Vehicle currnet_vehicle = car.getVehicle();
-            currnet_vehicle.gas(gas);
+            try{
+                currnet_vehicle.gas(gas);
+                } catch (IllegalStateException e){
+                    e.printStackTrace();
+                }
         }
     }
 
@@ -36,7 +40,11 @@ public class CarModel {
         double brake = ((double) amount) / 100;
         for (VehicleObject car : cars) {
             Vehicle currnet_vehicle = car.getVehicle();
-            currnet_vehicle.brake(brake);
+            try{
+                currnet_vehicle.brake(brake);
+                } catch (IllegalStateException e){
+                    e.printStackTrace();
+                }
         }
     }
 
@@ -63,7 +71,11 @@ public class CarModel {
         for (VehicleObject car : cars) {
             if (car.getVehicle() instanceof Scania) {
                 Scania scania = (Scania) car.getVehicle();
-                scania.set_platform(max_degree);
+                try{
+                    scania.set_platform(max_degree);
+                } catch (IllegalStateException e){
+                        e.printStackTrace();
+                }
             }
         }
     }
@@ -72,7 +84,11 @@ public class CarModel {
         for (VehicleObject car : cars) {
             if (car.getVehicle() instanceof Scania) {
                 Scania scania = (Scania) car.getVehicle();
-                scania.set_platform(0);
+                try{
+                    scania.set_platform(0);
+                } catch (IllegalStateException e){
+                        e.printStackTrace();
+                }
             }
         }
     }
@@ -80,7 +96,11 @@ public class CarModel {
     public void startCars() {
         for (VehicleObject car : cars) {
             Vehicle currnet_vehicle = car.getVehicle();
-            currnet_vehicle.startEngine();        
+            try{
+            currnet_vehicle.startEngine();
+            } catch (IllegalStateException e){
+                e.printStackTrace();
+            }
         }
     }
 
@@ -90,8 +110,6 @@ public class CarModel {
             currnet_vehicle.stopEngine();        
         }
     }
-
-    //TODO: methods for turning right and left
 
     public void setPosition(int x, int y, VehicleObject car){
         car.setPosition(x, y);
@@ -119,10 +137,10 @@ public class CarModel {
         int x_max = x;
         int y_max = y;
         for (VehicleObject car : cars) {
-            if (car.getX() > x_max || car.getX() < 0){
+            if (car.getX() > x_max - 115 || car.getX() < 0){
                 car.getVehicle().turnRight(); // Change to a set Direction
                 car.getVehicle().turnRight();
-            } else if (car.getY() > x_max || car.getX() < 0){
+            } else if (car.getY() > y_max - 60 || car.getY() < 0){
                 car.getVehicle().turnRight();
                 car.getVehicle().turnRight();
             }

@@ -84,7 +84,6 @@ public class CarView extends JFrame{
 
         controlPanel.setLayout(new GridLayout(2,5));
 
-        //TODO: Turn car Left and right, also fix logic for up, down, left, right in vehicle
         controlPanel.add(gasButton, 0);
         controlPanel.add(turnRightButton, 1);
         controlPanel.add(turboOnButton, 2);
@@ -112,8 +111,6 @@ public class CarView extends JFrame{
         // This actionListener is for the gas button only
         // TODO: Create more for each component as necessary
 
-        //TODO: Add eventhandling for turning
-
         gasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -124,7 +121,7 @@ public class CarView extends JFrame{
         brakeButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                carC.brake(gasAmount); // TODO: Add brakeAmount
+                carC.brake(gasAmount);
             }
         });
 

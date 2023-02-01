@@ -106,8 +106,6 @@ public class CarController {
         model.lowerBed();
     }
 
-    //TODO: Fix interaction between bed and startCars
-
     public void startCars() {
         model.startCars();
     }
