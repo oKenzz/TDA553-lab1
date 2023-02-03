@@ -1,6 +1,5 @@
 package vehicletypes;
 
-
 import java.awt.*;
 import java.util.HashMap;
 import interfaces.IMovable;
@@ -19,7 +18,7 @@ public abstract class Vehicle implements IMovable {
     private int dx = 1; // Direction in x-axis
     private int dy = 0; // Direction in y-axis
     private String direction = "RIGHT"; // The direction of the car (Default: up)
-    // private double speed = 0; // Used to check SpeedLimit
+    private boolean movable = true;
 
     public Vehicle(int nrDoors, Color color, double enginePower, String modelName){
         this.nrDoors = nrDoors;
@@ -71,7 +70,15 @@ public abstract class Vehicle implements IMovable {
         return direction;
     }
 
-    private void setDirection(String d) {
+    public boolean isMovable() {
+        return movable;
+    }
+
+    public void setMovable(boolean movable) {
+        this.movable = movable;
+    }
+
+    public void setDirection(String d) {
         int[] directionValues = DIRECTIONS.get(d);
         direction = d;
         this.dx = directionValues[0];
@@ -88,7 +95,7 @@ public abstract class Vehicle implements IMovable {
     }
 
     public void startEngine() {
-        if (currentSpeed >= 0.1) throw new IllegalStateException("Engine is already on");
+        if (!movable) throw new IllegalStateException("Not in a movable state");
         currentSpeed = 0.1;
     }
 
@@ -101,19 +108,15 @@ public abstract class Vehicle implements IMovable {
         switch (getDirection()) {
             case "UP":
                 setDirection("RIGHT");
-                // directionMsg(direction);
                 break;
             case "RIGHT":
                 setDirection("DOWN");
-                // directionMsg(direction);
                 break;
             case "DOWN":
                 setDirection("LEFT");
-                // directionMsg(direction);
                 break;
             case "LEFT":
                 setDirection("UP");
-                // directionMsg(direction);
                 break;
         }
     }
@@ -122,19 +125,15 @@ public abstract class Vehicle implements IMovable {
         switch (getDirection()) {
             case "UP":
                 setDirection("LEFT");
-                // directionMsg(direction);
                 break;
             case "LEFT":
                 setDirection("DOWN");
-                // directionMsg(direction);
                 break;
             case "DOWN":
                 setDirection("RIGHT");
-                // directionMsg(direction);
                 break;
             case "RIGHT":
                 setDirection("UP");
-                // directionMsg(direction);
                 break;
         }
     }
@@ -142,55 +141,42 @@ public abstract class Vehicle implements IMovable {
     public void move() {
         x = x + dx * currentSpeed;
         y = y + dy * currentSpeed;
-        // CarPositionMsg();
     }
-
-    // private void directionMsg(String direction) {
-    //     System.out.println("The car is now facing " + direction.toLowerCase());
-    // }
-
-    // public void CarPositionMsg() {
-    //     System.out.println("The cars position is:");
-    //     System.out.println("x: " + x);
-    //     System.out.println("y: " + y);
-    //     System.out.println("Facing: " + direction.toLowerCase());
-    // }
 
     public abstract double speedFactor();
 
     private void incrementSpeed(double amount) {
-        double speed = 0;
-        double new_speed;
-        speed += speedFactor() * amount;
-        new_speed = currentSpeed + speed;
+        double new_speed = 0;
+        new_speed = currentSpeed + (speedFactor() * amount);
         if (SpeedLimit(new_speed)) {
-            currentSpeed += speed;
+            currentSpeed = new_speed;
+        }
+        if (new_speed > enginePower){
+            currentSpeed = enginePower;
         }
     }
 
     private void decrementSpeed(double amount) {
-        double speed = 0;
-        double new_speed;
-        speed = Math.abs(speed -= speedFactor() * amount);
-        new_speed = currentSpeed - speed;
+        double new_speed = 0;
+        new_speed = currentSpeed - (speedFactor() * amount);
         if (SpeedLimit(new_speed)) { // currentSpeed always lies between interval [0, enginePower]
-            currentSpeed -= speed;
+            currentSpeed = new_speed;
         }
-        if (currentSpeed < 0){
+        if (new_speed < 0){
             currentSpeed = 0;
         }
     }
 
     public void gas(double amount) {
         if (!interval(amount)) throw new IllegalStateException("Can only gas by a amount of 0 to 1");
-        if (currentSpeed == 0) throw new IllegalStateException("Engien must be on"); 
+        if (currentSpeed == 0) throw new IllegalStateException("Engine must be on to gas"); 
         incrementSpeed(amount);
         System.out.println(currentSpeed);
     }
 
     public void brake(double amount) {
         if (!interval(amount)) throw new IllegalStateException("Can only gas by a amount of 0 to 1");
-        if (currentSpeed == 0) throw new IllegalStateException("Engien must be on"); 
+        if (currentSpeed == 0) throw new IllegalStateException("Engien must be on to brake"); 
         decrementSpeed(amount);
 
     }

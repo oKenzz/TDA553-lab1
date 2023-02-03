@@ -1,7 +1,4 @@
 import javax.swing.*;
-
-import vehicles.cars.*;
-import vehicles.trucks.Scania;
 import vehicletypes.Vehicle;
 
 import java.awt.event.ActionEvent;
@@ -30,7 +27,7 @@ public class CarController {
     // Model
     CarModel model;
 
-    // A list of cars, modify if needed
+    // A list of cars
     ArrayList<VehicleObject> cars = new ArrayList<>();
 
     // methods:
@@ -41,20 +38,9 @@ public class CarController {
         cc.model = new CarModel();
         cc.cars = cc.model.getCars();
 
-        // Volvo240 volvo240 = new Volvo240();
-        // Saab95 saab95 = new Saab95();
-        // Scania scania = new Scania();
-
-        // saab95.set_position(0, 100);
-        // scania.set_position(0,200);
-
-        // cc.cars.add(volvo240);
-        // cc.cars.add(saab95);
-        // cc.cars.add(scania);
-
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
-        cc.frame.drawPanel.setModel(cc.cars); // Getter for drawPanel????
+        cc.frame.drawPanel.setModel(cc.cars);
 
         // Start the timer
         cc.timer.start();
@@ -68,20 +54,16 @@ public class CarController {
         public void actionPerformed(ActionEvent e) {
             for (VehicleObject car : cars) {
                 Vehicle current_car = car.getVehicle();
-                // current_car.move();
                 model.move(current_car);
                 int x = (int) Math.round(current_car.getX());
                 int y = (int) Math.round(current_car.getY());
                 model.setPosition(x, y, car);
-                model.check_bounds(1000, 360); // Find the correct x and y value
-                // frame.drawPanel.moveit(x, y, car);
-                // repaint() calls the paintComponent method of the panel
+                model.check_bounds(frame.getX(), frame.getY()-frame.getDIFF());
                 frame.drawPanel.repaint();
             }
         }
     }
 
-    // Calls the gas method for each car once
     public void gas(int amount) {
         model.gas(amount);
     }

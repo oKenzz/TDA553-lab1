@@ -1,8 +1,6 @@
 package repairshop;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import carstorage.CarStorage;
 import vehicletypes.Vehicle;
 

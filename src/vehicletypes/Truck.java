@@ -15,9 +15,17 @@ public abstract class Truck extends Vehicle {
     
     @Override
     public void startEngine(){
-        if (getCurrentSpeed() != 0) throw new IllegalStateException("Engine is already on"); 
-        if (getIs_platform_On()) throw new IllegalStateException("You can not start the engine while the platform is ON");
+        if (!check_movable()) throw new IllegalStateException("You can not start the engine while the platform is ON");
         setCurrentSpeed(0.1);
+    }
+
+    private boolean check_movable(){
+        if (getIs_platform_On()){
+            setMovable(false);
+        } else {
+            setMovable(true);
+        }
+        return isMovable();
     }
 
     public abstract boolean getIs_platform_On();

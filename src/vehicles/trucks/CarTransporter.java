@@ -1,13 +1,9 @@
 package vehicles.trucks;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import carstorage.CarStorage;
 import vehicletypes.Truck;
 import vehicletypes.Vehicle;
-
-
 import java.awt.*;
 import platform.PlatformWithStates;
 

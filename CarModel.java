@@ -1,13 +1,9 @@
 import java.util.ArrayList;
-import java.util.Currency;
 import java.awt.Point;
 import vehicles.cars.*;
 import vehicles.trucks.Scania;
 import vehicletypes.Vehicle;
 
-
-//Has data that other modules manipulate
-//This means that other modules have a Model
 public class CarModel {
     
     private ArrayList<VehicleObject> cars = new ArrayList<>();
@@ -137,22 +133,20 @@ public class CarModel {
         int x_max = x;
         int y_max = y;
         for (VehicleObject car : cars) {
-            if (car.getX() > x_max - 115 || car.getX() < 0){
-                car.getVehicle().turnRight(); // Change to a set Direction
-                car.getVehicle().turnRight();
-            } else if (car.getY() > y_max - 60 || car.getY() < 0){
-                car.getVehicle().turnRight();
-                car.getVehicle().turnRight();
+            Vehicle current_vehicle = car.getVehicle();
+            if (car.getX() > x_max - 115){
+                current_vehicle.setDirection("LEFT");
+            } else if (car.getX() < 0){
+                current_vehicle.setDirection("RIGHT");
+            } else if (car.getY() > y_max - 60){
+                current_vehicle.setDirection("UP");
+            } else if (car.getY() < 0){
+                current_vehicle.setDirection("DOWN");
             }
         }
     }
-
-
+    
     public ArrayList<VehicleObject> getCars() {
         return cars;
     }    
-
-    
-
-
 }

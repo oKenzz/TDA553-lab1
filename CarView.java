@@ -1,9 +1,6 @@
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
-import vehicles.cars.Volvo240;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,11 +16,12 @@ import java.awt.event.ActionListener;
 public class CarView extends JFrame{
     private static final int X = 1000;
     private static final int Y = 600;
+    private static final int DIFF = 240;
 
     // The controller member
     CarController carC;
 
-    DrawPanel drawPanel = new DrawPanel(X, Y-240);
+    DrawPanel drawPanel = new DrawPanel(X, Y-DIFF);
 
     JPanel controlPanel = new JPanel();
 
@@ -50,7 +48,20 @@ public class CarView extends JFrame{
         initComponents(framename);
     }
 
-    
+    public int getX(){
+        return X;
+    }
+
+    public int getY(){
+        return Y;
+    }
+
+    public int getDIFF(){
+        return DIFF;
+    }
+
+
+
 
     // Sets everything in place and fits everything
     // TODO: Take a good look and make sure you understand how these methods and components work
