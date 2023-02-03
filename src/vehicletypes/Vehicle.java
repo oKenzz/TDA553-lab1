@@ -96,6 +96,7 @@ public abstract class Vehicle implements IMovable {
 
     public void startEngine() {
         if (!movable) throw new IllegalStateException("Not in a movable state");
+        if (currentSpeed > 0.1) throw new IllegalStateException("Engine is already on");
         currentSpeed = 0.1;
     }
 
