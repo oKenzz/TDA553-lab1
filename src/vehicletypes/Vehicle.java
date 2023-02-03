@@ -172,7 +172,6 @@ public abstract class Vehicle implements IMovable {
         if (!interval(amount)) throw new IllegalStateException("Can only gas by a amount of 0 to 1");
         if (currentSpeed == 0) throw new IllegalStateException("Engine must be on to gas"); 
         incrementSpeed(amount);
-        System.out.println(currentSpeed);
     }
 
     public void brake(double amount) {
