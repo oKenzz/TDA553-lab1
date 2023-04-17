@@ -57,6 +57,4 @@ public class VehicleObject {
         this.position.x = x;
         this.position.y = y;
     }
-
-
 }
