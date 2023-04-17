@@ -1,4 +1,7 @@
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import vehicletypes.Vehicle;
 
 import java.awt.event.ActionEvent;
@@ -39,9 +42,9 @@ public class CarController {
         cc.cars = cc.model.getCars();
 
         // Start a new view and send a reference of self
-        cc.frame = new CarView("CarSim 1.0", cc);
+        cc.frame = new CarView("CarSim 1.0");
         cc.frame.drawPanel.setModel(cc.cars);
-
+        cc.setupActions();
         // Start the timer
         cc.timer.start();
     }
@@ -64,13 +67,129 @@ public class CarController {
         }
     }
 
-    public void gas(int amount) {
-        model.gas(amount);
+    private void setupActions(){
+        gasSpinnerSetup();
+        gasButtonSetup();
+        brakeButtonSetup();
+        turboOnButtonSetup();
+        turboOffButtonSetup();
+        liftBedButtonSetup();
+        lowerBedButtonSetup();
+        startButtonSetup();
+        stopButtonSetup();
+        turnRightButtonSetup();
+        turnLeftButtonSetup();
     }
 
-    public void brake(int amount) {
-        model.brake(amount);
+    //TODO: use getters through frame.get() instead, remove parameters
+    public void gasSpinnerSetup(){
+        frame.getGasSpinner().addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                int gasAmount = (int) ((JSpinner)e.getSource()).getValue();
+                model.setAmount(gasAmount);
+            }
+        });
     }
+
+    public void gasButtonSetup(){
+        frame.getGasButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                model.gas();
+            }
+        });
+    }
+
+    public void brakeButtonSetup(){
+        frame.getBrakeButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                model.brake();
+            }
+        });
+    }
+
+    public void turboOnButtonSetup(){
+        frame.getTurboOnButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                model.turboOn();
+            }
+        });
+    }
+
+    public void turboOffButtonSetup(){
+        frame.getTurboOffButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                model.turboOff();
+            }
+        });
+    }
+
+    public void liftBedButtonSetup(){
+        frame.getLiftBedButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                model.liftBed();
+            }
+        });
+    }
+
+    public void lowerBedButtonSetup(){
+        frame.getLowerBedButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                model.lowerBed();
+            }
+        });
+    }
+
+    public void startButtonSetup(){
+        frame.getStartButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                model.startCars();
+            }
+        });
+    }
+
+    public void stopButtonSetup(){
+        frame.getStopButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                model.stopCars();
+            }
+        });
+    }
+
+    public void turnRightButtonSetup(){
+        frame.getTurnRightButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                model.turnRight();
+            }
+        });
+    }
+
+    public void turnLeftButtonSetup(){
+        frame.getTurnLeftButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                model.turnLeft();
+            }
+        });
+    }
+
+
+    //TODO: Remove and add directly in the acitonlisteners
+    // public void gas(int amount) {
+    //     model.gas(amount);
+    // }
+
+    // public void brake(int amount) {
+    //     model.brake(amount);
+    // }
 
     public void turboOn() {
         model.turboOn();

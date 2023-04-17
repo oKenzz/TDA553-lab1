@@ -7,6 +7,7 @@ import vehicletypes.Vehicle;
 public class CarModel {
     
     private ArrayList<VehicleObject> cars = new ArrayList<>();
+    private int amount = 0;
 
     public CarModel(){
 
@@ -20,7 +21,7 @@ public class CarModel {
 
     }
 
-    public void gas(int amount) {
+    public void gas() {
         double gas = ((double) amount) / 100;
         for (VehicleObject car : cars) {
             Vehicle currnet_vehicle = car.getVehicle();
@@ -32,7 +33,7 @@ public class CarModel {
         }
     }
 
-    public void brake(int amount) {
+    public void brake() {
         double brake = ((double) amount) / 100;
         for (VehicleObject car : cars) {
             Vehicle currnet_vehicle = car.getVehicle();
@@ -148,5 +149,9 @@ public class CarModel {
     
     public ArrayList<VehicleObject> getCars() {
         return cars;
-    }    
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }        
 }
