@@ -16,6 +16,7 @@ public class CarView extends JFrame{
 
     private DrawPanel drawPanel = new DrawPanel(X, Y-DIFF);
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     private JPanel controlPanel = new JPanel();
 
@@ -35,6 +36,8 @@ public class CarView extends JFrame{
     private JButton stopButton = new JButton("Stop all cars");
 =======
 >>>>>>> d26cf1d (update)
+=======
+>>>>>>> lab3_develop
 
     // Constructor
     public CarView(String framename){
@@ -54,12 +57,18 @@ public class CarView extends JFrame{
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> lab3_develop
     public DrawPanel getDrawPanel() {
         return drawPanel;
     }
 
+<<<<<<< HEAD
 >>>>>>> d26cf1d (update)
+=======
+>>>>>>> lab3_develop
     // Sets everything in place and fits everything
     // TODO: Take a good look and make sure you understand how these methods and components work
     private void initComponents(String title) {
@@ -70,6 +79,7 @@ public class CarView extends JFrame{
 
         this.add(drawPanel);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 
@@ -114,6 +124,8 @@ public class CarView extends JFrame{
 
 =======
 >>>>>>> d26cf1d (update)
+=======
+>>>>>>> lab3_develop
         // Make the frame pack all it's components by respecting the sizes if possible.
         this.pack();
 
@@ -127,6 +139,7 @@ public class CarView extends JFrame{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public JSpinner getGasSpinner() {
         return gasSpinner;
@@ -180,4 +193,9 @@ public class CarView extends JFrame{
         return DIFF;
     }    
 >>>>>>> d26cf1d (update)
+=======
+    public static int getDiff() {
+        return DIFF;
+    }    
+>>>>>>> lab3_develop
 }

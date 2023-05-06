@@ -33,7 +33,10 @@ public class CarController {
     // Model
     private CarModel model;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> lab3_develop
 
     // A list of cars
     private ArrayList<VehicleObject> cars = new ArrayList<>();
@@ -54,7 +57,10 @@ public class CarController {
     private JButton startButton = new JButton("Start all cars");
     private JButton stopButton = new JButton("Stop all cars");
 
+<<<<<<< HEAD
 >>>>>>> d26cf1d (update)
+=======
+>>>>>>> lab3_develop
 
     // methods:
 
@@ -69,6 +75,7 @@ public class CarController {
         CarModel model = new CarModel();
         CarView frame = new CarView("CarSim 1.0");
 <<<<<<< HEAD
+<<<<<<< HEAD
         CarController cc = new CarController(model, frame);
 
         // Start a new view and send a reference of self
@@ -79,6 +86,12 @@ public class CarController {
 
         // Start a new view and send a reference of self
 >>>>>>> d26cf1d (update)
+=======
+        frame.getDrawPanel().setModel(model.getCars());
+        CarController cc = new CarController(model, frame);
+
+        // Start a new view and send a reference of self
+>>>>>>> lab3_develop
         // Start the timer
         cc.timer.start();
     }
@@ -168,6 +181,7 @@ public class CarController {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     private void gasSpinnerSetup(){
         frame.getGasSpinner().addChangeListener(new ChangeListener() {
             @Override
@@ -176,6 +190,11 @@ public class CarController {
     private void gasSpinnerSetup(){
         gasSpinner.addChangeListener(new ChangeListener() {
 >>>>>>> d26cf1d (update)
+=======
+    //TODO: use getters through frame.get() instead, remove parameters
+    private void gasSpinnerSetup(){
+        gasSpinner.addChangeListener(new ChangeListener() {
+>>>>>>> lab3_develop
             public void stateChanged(ChangeEvent e) {
                 int gasAmount = (int) ((JSpinner)e.getSource()).getValue();
                 model.setAmount(gasAmount);
@@ -185,10 +204,14 @@ public class CarController {
 
     private void gasButtonSetup(){
 <<<<<<< HEAD
+<<<<<<< HEAD
         frame.getGasButton().addActionListener(new ActionListener() {
 =======
         gasButton.addActionListener(new ActionListener() {
 >>>>>>> d26cf1d (update)
+=======
+        gasButton.addActionListener(new ActionListener() {
+>>>>>>> lab3_develop
             @Override
             public void actionPerformed(ActionEvent e) {
                 model.gas();
@@ -198,10 +221,14 @@ public class CarController {
 
     private void brakeButtonSetup(){
 <<<<<<< HEAD
+<<<<<<< HEAD
         frame.getBrakeButton().addActionListener(new ActionListener(){
 =======
         brakeButton.addActionListener(new ActionListener(){
 >>>>>>> d26cf1d (update)
+=======
+        brakeButton.addActionListener(new ActionListener(){
+>>>>>>> lab3_develop
             @Override
             public void actionPerformed(ActionEvent e){
                 model.brake();
@@ -211,10 +238,14 @@ public class CarController {
 
     private void turboOnButtonSetup(){
 <<<<<<< HEAD
+<<<<<<< HEAD
         frame.getTurboOnButton().addActionListener(new ActionListener(){
 =======
         turboOnButton.addActionListener(new ActionListener(){
 >>>>>>> d26cf1d (update)
+=======
+        turboOnButton.addActionListener(new ActionListener(){
+>>>>>>> lab3_develop
             @Override
             public void actionPerformed(ActionEvent e){
                 model.turboOn();
@@ -224,10 +255,14 @@ public class CarController {
 
     private void turboOffButtonSetup(){
 <<<<<<< HEAD
+<<<<<<< HEAD
         frame.getTurboOffButton().addActionListener(new ActionListener(){
 =======
         turboOffButton.addActionListener(new ActionListener(){
 >>>>>>> d26cf1d (update)
+=======
+        turboOffButton.addActionListener(new ActionListener(){
+>>>>>>> lab3_develop
             @Override
             public void actionPerformed(ActionEvent e){
                 model.turboOff();
@@ -237,10 +272,14 @@ public class CarController {
 
     private void liftBedButtonSetup(){
 <<<<<<< HEAD
+<<<<<<< HEAD
         frame.getLiftBedButton().addActionListener(new ActionListener(){
 =======
         liftBedButton.addActionListener(new ActionListener(){
 >>>>>>> d26cf1d (update)
+=======
+        liftBedButton.addActionListener(new ActionListener(){
+>>>>>>> lab3_develop
             @Override
             public void actionPerformed(ActionEvent e){
                 model.liftBed();
@@ -250,10 +289,14 @@ public class CarController {
 
     private void lowerBedButtonSetup(){
 <<<<<<< HEAD
+<<<<<<< HEAD
         frame.getLowerBedButton().addActionListener(new ActionListener(){
 =======
         lowerBedButton.addActionListener(new ActionListener(){
 >>>>>>> d26cf1d (update)
+=======
+        lowerBedButton.addActionListener(new ActionListener(){
+>>>>>>> lab3_develop
             @Override
             public void actionPerformed(ActionEvent e){
                 model.lowerBed();
@@ -263,10 +306,14 @@ public class CarController {
 
     private void startButtonSetup(){
 <<<<<<< HEAD
+<<<<<<< HEAD
         frame.getStartButton().addActionListener(new ActionListener(){
 =======
         startButton.addActionListener(new ActionListener(){
 >>>>>>> d26cf1d (update)
+=======
+        startButton.addActionListener(new ActionListener(){
+>>>>>>> lab3_develop
             @Override
             public void actionPerformed(ActionEvent e){
                 model.startCars();
@@ -276,10 +323,14 @@ public class CarController {
 
     private void stopButtonSetup(){
 <<<<<<< HEAD
+<<<<<<< HEAD
         frame.getStopButton().addActionListener(new ActionListener(){
 =======
         stopButton.addActionListener(new ActionListener(){
 >>>>>>> d26cf1d (update)
+=======
+        stopButton.addActionListener(new ActionListener(){
+>>>>>>> lab3_develop
             @Override
             public void actionPerformed(ActionEvent e){
                 model.stopCars();
@@ -289,10 +340,14 @@ public class CarController {
 
     private void turnRightButtonSetup(){
 <<<<<<< HEAD
+<<<<<<< HEAD
         frame.getTurnRightButton().addActionListener(new ActionListener(){
 =======
         turnRightButton.addActionListener(new ActionListener(){
 >>>>>>> d26cf1d (update)
+=======
+        turnRightButton.addActionListener(new ActionListener(){
+>>>>>>> lab3_develop
             @Override
             public void actionPerformed(ActionEvent e){
                 model.turnRight();
@@ -302,10 +357,14 @@ public class CarController {
 
     private void turnLeftButtonSetup(){
 <<<<<<< HEAD
+<<<<<<< HEAD
         frame.getTurnLeftButton().addActionListener(new ActionListener(){
 =======
         turnLeftButton.addActionListener(new ActionListener(){
 >>>>>>> d26cf1d (update)
+=======
+        turnLeftButton.addActionListener(new ActionListener(){
+>>>>>>> lab3_develop
             @Override
             public void actionPerformed(ActionEvent e){
                 model.turnLeft();
