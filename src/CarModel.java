@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Currency;
 import java.awt.Point;
 import vehicles.cars.*;
 import vehicles.trucks.Scania;

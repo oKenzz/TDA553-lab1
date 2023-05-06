@@ -4,6 +4,10 @@ import javax.swing.event.ChangeListener;
 
 import vehicletypes.Vehicle;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -25,26 +29,41 @@ public class CarController {
     private Timer timer = new Timer(delay, new TimerListener());
 
     // The frame that represents this instance View of the MVC pattern
-    CarView frame;
+    private CarView frame;
 
     // Model
-    CarModel model;
+    private CarModel model;
 
     // A list of cars
-    ArrayList<VehicleObject> cars = new ArrayList<>();
+    private ArrayList<VehicleObject> cars = new ArrayList<>();
+
+    // Controllers
+    private JPanel controlPanel = new JPanel();
+    private JPanel gasPanel = new JPanel();
+    private JSpinner gasSpinner = new JSpinner();
+    private JLabel gasLabel = new JLabel("Amount of gas");
+    private JButton gasButton = new JButton("Gas");
+    private JButton brakeButton = new JButton("Brake");
+    private JButton turnRightButton = new JButton("Turn Right");
+    private JButton turnLeftButton = new JButton("Turn Left");
+    private JButton turboOnButton = new JButton("Saab Turbo on");
+    private JButton turboOffButton = new JButton("Saab Turbo off");
+    private JButton liftBedButton = new JButton("Scania Lift Bed");
+    private JButton lowerBedButton = new JButton("Lower Lift Bed");
+    private JButton startButton = new JButton("Start all cars");
+    private JButton stopButton = new JButton("Stop all cars");
+
 
     // methods:
 
     public static void main(String[] args) {
         // Instance of this class
-        CarController cc = new CarController();
-        cc.model = new CarModel();
-        cc.cars = cc.model.getCars();
+        CarModel model = new CarModel();
+        CarView frame = new CarView("CarSim 1.0");
+        frame.getDrawPanel().setModel(model.getCars());
+        CarController cc = new CarController(model, frame);
 
         // Start a new view and send a reference of self
-        cc.frame = new CarView("CarSim 1.0");
-        cc.frame.drawPanel.setModel(cc.cars);
-        cc.setupActions();
         // Start the timer
         cc.timer.start();
     }
@@ -55,17 +74,69 @@ public class CarController {
      */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            for (VehicleObject car : cars) {
+            for (VehicleObject car : model.getCars()) {
                 Vehicle current_car = car.getVehicle();
                 model.move(current_car);
                 int x = (int) Math.round(current_car.getX());
                 int y = (int) Math.round(current_car.getY());
                 model.setPosition(x, y, car);
                 model.check_bounds(frame.getX(), frame.getY()-frame.getDIFF());
-                frame.drawPanel.repaint();
+                frame.getDrawPanel().repaint();
             }
         }
     }
+
+    public CarController(CarModel carModel, CarView view){
+        this.model = carModel;
+        this.frame = view;
+        addComponents();
+        setupActions();
+        frame.revalidate();
+    }
+
+    private void addComponents(){
+        SpinnerModel spinnerModel =
+        new SpinnerNumberModel(0, //initial value
+                0, //mindelay
+                100, //max
+                1);//step
+        gasSpinner = new JSpinner(spinnerModel);
+       
+
+        gasPanel.setLayout(new BorderLayout());
+        gasPanel.add(gasLabel, BorderLayout.PAGE_START);
+        gasPanel.add(gasSpinner, BorderLayout.PAGE_END);
+
+        frame.add(gasPanel);
+
+        controlPanel.setLayout(new GridLayout(2,5));
+
+        controlPanel.add(gasButton, 0);
+        controlPanel.add(turnRightButton, 1);
+        controlPanel.add(turboOnButton, 2);
+        controlPanel.add(liftBedButton, 3);
+        controlPanel.add(brakeButton, 4);
+        controlPanel.add(turnLeftButton, 5);
+        controlPanel.add(turboOffButton, 6);
+        controlPanel.add(lowerBedButton, 7);
+        controlPanel.setPreferredSize(new Dimension((frame.getX()/2)+4, 200));
+        controlPanel.setBackground(Color.CYAN);
+        frame.add(controlPanel);
+
+
+        startButton.setBackground(Color.blue);
+        startButton.setForeground(Color.green);
+        startButton.setPreferredSize(new Dimension(frame.getX()/5-15,200));
+        frame.add(startButton);
+
+
+        stopButton.setBackground(Color.red);
+        stopButton.setForeground(Color.black);
+        stopButton.setPreferredSize(new Dimension(frame.getX()/5-15,200));
+        frame.add(stopButton);
+
+    }
+
 
     private void setupActions(){
         gasSpinnerSetup();
@@ -82,8 +153,8 @@ public class CarController {
     }
 
     //TODO: use getters through frame.get() instead, remove parameters
-    public void gasSpinnerSetup(){
-        frame.getGasSpinner().addChangeListener(new ChangeListener() {
+    private void gasSpinnerSetup(){
+        gasSpinner.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 int gasAmount = (int) ((JSpinner)e.getSource()).getValue();
                 model.setAmount(gasAmount);
@@ -91,8 +162,8 @@ public class CarController {
         });
     }
 
-    public void gasButtonSetup(){
-        frame.getGasButton().addActionListener(new ActionListener() {
+    private void gasButtonSetup(){
+        gasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 model.gas();
@@ -100,8 +171,8 @@ public class CarController {
         });
     }
 
-    public void brakeButtonSetup(){
-        frame.getBrakeButton().addActionListener(new ActionListener(){
+    private void brakeButtonSetup(){
+        brakeButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 model.brake();
@@ -109,8 +180,8 @@ public class CarController {
         });
     }
 
-    public void turboOnButtonSetup(){
-        frame.getTurboOnButton().addActionListener(new ActionListener(){
+    private void turboOnButtonSetup(){
+        turboOnButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 model.turboOn();
@@ -118,8 +189,8 @@ public class CarController {
         });
     }
 
-    public void turboOffButtonSetup(){
-        frame.getTurboOffButton().addActionListener(new ActionListener(){
+    private void turboOffButtonSetup(){
+        turboOffButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 model.turboOff();
@@ -127,8 +198,8 @@ public class CarController {
         });
     }
 
-    public void liftBedButtonSetup(){
-        frame.getLiftBedButton().addActionListener(new ActionListener(){
+    private void liftBedButtonSetup(){
+        liftBedButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 model.liftBed();
@@ -136,8 +207,8 @@ public class CarController {
         });
     }
 
-    public void lowerBedButtonSetup(){
-        frame.getLowerBedButton().addActionListener(new ActionListener(){
+    private void lowerBedButtonSetup(){
+        lowerBedButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 model.lowerBed();
@@ -145,8 +216,8 @@ public class CarController {
         });
     }
 
-    public void startButtonSetup(){
-        frame.getStartButton().addActionListener(new ActionListener(){
+    private void startButtonSetup(){
+        startButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 model.startCars();
@@ -154,8 +225,8 @@ public class CarController {
         });
     }
 
-    public void stopButtonSetup(){
-        frame.getStopButton().addActionListener(new ActionListener(){
+    private void stopButtonSetup(){
+        stopButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 model.stopCars();
@@ -163,8 +234,8 @@ public class CarController {
         });
     }
 
-    public void turnRightButtonSetup(){
-        frame.getTurnRightButton().addActionListener(new ActionListener(){
+    private void turnRightButtonSetup(){
+        turnRightButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 model.turnRight();
@@ -172,54 +243,12 @@ public class CarController {
         });
     }
 
-    public void turnLeftButtonSetup(){
-        frame.getTurnLeftButton().addActionListener(new ActionListener(){
+    private void turnLeftButtonSetup(){
+        turnLeftButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 model.turnLeft();
             }
         });
-    }
-
-
-    //TODO: Remove and add directly in the acitonlisteners
-    // public void gas(int amount) {
-    //     model.gas(amount);
-    // }
-
-    // public void brake(int amount) {
-    //     model.brake(amount);
-    // }
-
-    public void turboOn() {
-        model.turboOn();
-    }
-
-    public void turboOff() {
-        model.turboOff();
-    }
-
-    public void liftBed() {
-        model.liftBed();
-    }
-
-    public void lowerBed() {
-        model.lowerBed();
-    }
-
-    public void startCars() {
-        model.startCars();
-    }
-
-    public void stopCars() {
-        model.stopCars();
-    }
-
-    public void turnRight(){
-        model.turnRight();
-    }
-
-    public void turnLeft(){
-        model.turnLeft();
     }
 }
