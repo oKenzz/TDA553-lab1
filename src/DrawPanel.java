@@ -5,7 +5,7 @@ import javax.swing.*;
 
 public class DrawPanel extends JPanel {
 
-    ArrayList<VehicleObject> cars;
+    private ArrayList<VehicleObject> cars;
 
     public void setModel(ArrayList<VehicleObject> cars){
         this.cars = cars;

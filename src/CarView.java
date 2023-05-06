@@ -15,6 +15,7 @@ public class CarView extends JFrame{
     private static final int DIFF = 240;
 
     private DrawPanel drawPanel = new DrawPanel(X, Y-DIFF);
+<<<<<<< HEAD
 
     private JPanel controlPanel = new JPanel();
 
@@ -32,10 +33,11 @@ public class CarView extends JFrame{
     private JButton lowerBedButton = new JButton("Lower Lift Bed");
     private JButton startButton = new JButton("Start all cars");
     private JButton stopButton = new JButton("Stop all cars");
+=======
+>>>>>>> d26cf1d (update)
 
     // Constructor
     public CarView(String framename){
-        // this.carC = cc;
         initComponents(framename);
     }
 
@@ -51,6 +53,13 @@ public class CarView extends JFrame{
         return DIFF;
     }
 
+<<<<<<< HEAD
+=======
+    public DrawPanel getDrawPanel() {
+        return drawPanel;
+    }
+
+>>>>>>> d26cf1d (update)
     // Sets everything in place and fits everything
     // TODO: Take a good look and make sure you understand how these methods and components work
     private void initComponents(String title) {
@@ -61,6 +70,7 @@ public class CarView extends JFrame{
 
         this.add(drawPanel);
 
+<<<<<<< HEAD
 
 
         SpinnerModel spinnerModel =
@@ -102,6 +112,8 @@ public class CarView extends JFrame{
         stopButton.setPreferredSize(new Dimension(X/5-15,200));
         this.add(stopButton);
 
+=======
+>>>>>>> d26cf1d (update)
         // Make the frame pack all it's components by respecting the sizes if possible.
         this.pack();
 
@@ -115,6 +127,7 @@ public class CarView extends JFrame{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+<<<<<<< HEAD
     public JSpinner getGasSpinner() {
         return gasSpinner;
     }
@@ -162,4 +175,9 @@ public class CarView extends JFrame{
     public DrawPanel getDrawPanel() {
         return drawPanel;
     }
+=======
+    public static int getDiff() {
+        return DIFF;
+    }    
+>>>>>>> d26cf1d (update)
 }
